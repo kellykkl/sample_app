@@ -33,7 +33,8 @@ class ArticlesController < ApplicationController
 
 	def show
 		@article = Article.find(params[:id])
-		@notes = @article.notes.where(user_id: current_user.id, is_public: false)
+		@notes = @article.notes.where(user_id: current_user.id, is_public: false)\
+					.order(:page_num)
 	end
  
 private

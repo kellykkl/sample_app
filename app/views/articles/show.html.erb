@@ -12,39 +12,76 @@
 
 <% if logged_in? %>
 
-<div class="row">
+<div class="row h-50">
+
+
 
   <%= form_with scope: :note, url: notes_path(article_id: @article.id), local: true do |form| %>
+
+      <div class = "col-sm-9">
       <%= form.hidden_field :is_public, :value => false %>
       <%= form.label :note_text %><br>
       <%= form.text_area :note_text, size: "30x15" %>
+    </div>
+      <div class = "col-sm-3">
 
-      <label class="radio-inline">
-        <%= form.radio_button :note_type, 'note', :checked => true %> Note
-      </label>
-      <label class="radio-inline">
-        <%= form.radio_button :note_type, 'question', :checked => false %> Question
-      </label>
+        <label>Type </label><br/>
 
-      <%= form.label :page_num %><br>
-      <%= form.number_field :page_num %>
+        <%= form.radio_button :note_type, 'note', :checked => true  %>
+        <%= form.label :note_type, 'Note', :style => "display:inline" , class: 'label label-default' %>
+        <br/>
+        
+        <%= form.radio_button :note_type, 'question' %>
+        <%= form.label :note_type, 'Question', :style => "display:inline", class: 'label label-primary' %>
+
+        <br/>
+
+        <%= form.radio_button :note_type, 'summary' %>
+        <%= form.label :note_type, 'Summary', :style => "display:inline", class: 'label label-success' %>
+
+        <br/>
+
+        <%= form.radio_button :note_type, 'code' %>
+        <%= form.label :note_type, 'Code', :style => "display:inline", class: 'label label-warning' %>
+
+        <br/>
+        <br/>
+
+      <label>PDF page number </label><br/>
+      <%= form.number_field :page_num, :style => "display:inline", class: "col-sm-3"  %>
+    
       
 
     <p>
       <%= form.submit %>
     </p>
+
+
   <% end %>
 
+</div>
 
 
+</div>
+
+<div class = "row">
+
+<div class = "container-overflow">
 
   <ul class="notes">
     <% @notes.each do |note| %>
-      <li>
-          <%= note.note_type %>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+    <%= kramdown(note.note_text).html_safe %>
+  </div>
+</div>
+
+
+<!--           <%= note.note_type %>
           <%= note.page_num %>
-          <%= kramdown(note.note_text).html_safe %>
-      </li>
+          <%= kramdown(note.note_text).html_safe %> -->
+
     <% end %>
   </ul>
 
@@ -52,4 +89,6 @@
 <% else %>
   <%= link_to "Log in now to add notes", login_path, class: 'btn btn-link' %>
 <% end %>
+
+</div>
 </div>
