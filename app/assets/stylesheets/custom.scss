@@ -45,6 +45,13 @@ h2 {
   color: #777;
 }
 
+h3 {
+  font-size: 2em;
+  letter-spacing: -1px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -222,4 +229,20 @@ input {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
+}
+
+/* Navbar form */
+
+.navbar_text {
+   margin-top: 2px;
+   height: 15px;
+   font-size: 13px;
+   line-height: 15px;
+}
+
+.navbar_button {
+   margin-top: 2px;
+   height: 12px;
+   font-size: 13px; 
+   line-height: 17px;
 }

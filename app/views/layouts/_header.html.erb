@@ -13,9 +13,11 @@
         <span class="icon-bar"></span>
       </button>
     </div>
+
+
     <ul class="nav navbar-nav navbar-right collapse navbar-collapse"
         id="bs-example-navbar-collapse-1"> 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Help", help_path %></li>
       <% if logged_in? %>
@@ -37,6 +39,18 @@
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
       </ul>
+
+ 
+           <%= form_with scope: :article, url: articles_path, class: "navbar-form navbar-right", local: true do |f| %>
+           <%= f.text_field :url, class: 'form-group form-control navbar_text col-sm-10', placeholder: "Enter arxiv link"%>
+          <%= f.submit "Go", class: "form-group btn-sm navbar_button col-sm-2" %>
+        <% end %>  
+
+
+
     </nav>
   </div>
 </header>
+
+
+

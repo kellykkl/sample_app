@@ -1,0 +1,55 @@
+<% provide(:title, @article.title) %>
+<div class="row">
+  <div class="col-sm-12">
+       <h3>
+         <%= @article.title %>
+      </h3>
+      <div class = "center">
+      <%= link_to "Open article in new tab", @article.download_link, target: :_blank, class: 'btn btn-link' %>
+    </div>
+  </div>
+</div>
+
+<% if logged_in? %>
+
+<div class="row">
+
+  <%= form_with scope: :note, url: notes_path(article_id: @article.id), local: true do |form| %>
+      <%= form.hidden_field :is_public, :value => false %>
+      <%= form.label :note_text %><br>
+      <%= form.text_area :note_text, size: "30x15" %>
+
+      <label class="radio-inline">
+        <%= form.radio_button :note_type, 'note', :checked => true %> Note
+      </label>
+      <label class="radio-inline">
+        <%= form.radio_button :note_type, 'question', :checked => false %> Question
+      </label>
+
+      <%= form.label :page_num %><br>
+      <%= form.number_field :page_num %>
+      
+
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+
+
+
+
+  <ul class="notes">
+    <% @notes.each do |note| %>
+      <li>
+          <%= note.note_type %>
+          <%= note.page_num %>
+          <%= kramdown(note.note_text).html_safe %>
+      </li>
+    <% end %>
+  </ul>
+
+
+<% else %>
+  <%= link_to "Log in now to add notes", login_path, class: 'btn btn-link' %>
+<% end %>
+</div>
