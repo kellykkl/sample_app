@@ -8,4 +8,14 @@
       </h1>
     </section>
   </aside>
+
+  <div class="col-md-8 my-2">
+  	<h2 class='text-left'>My Articles</h2>
+<ul class="users_articles">
+
+  	  <% @user_articles.each do |article| %>
+      <%= render partial: "article_card", locals: {article: article} %>
+      <% end %>
+</ul>
+  </div>
 </div>

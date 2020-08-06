@@ -34,12 +34,16 @@ class ArticlesController < ApplicationController
 	def show
 		@article = Article.find(params[:id])
 		if current_user.nil?
-			@notes = @article.notes.where(is_public: true)\
-						.order(:page_num)
+			@notes = nil
 		else
 			@notes = @article.notes.where(user_id: current_user.id, is_public: false)\
 						.order(:page_num)
 		end
+
+		@public_notes = @article.notes.where(is_public: true)\
+						.order(:page_num)
+
+		@query = params[:query]
 	end
  
 private

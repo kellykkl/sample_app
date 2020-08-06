@@ -8,7 +8,7 @@
 
 note_cat = note.note_type.to_s.capitalize %>
 
-  <div class="card border-<%= font_type[note.note_type] %> mb-3 mr-2">
+  <div class="card border-<%= font_type[note.note_type] %> mb-3 ">
     <div class="card-header bg-<%= font_type[note.note_type] %> text-white">
         Page <%== note.page_num %> // <%== note_cat %>
     </div>
@@ -16,10 +16,13 @@ note_cat = note.note_type.to_s.capitalize %>
         <%= kramdown(note.note_text).html_safe %>
       </div>
       <div class="card-footer">
-
+          <% if query == "private" %>
           <%= link_to "Delete", note_path(article_id: article_id, id: note.id), method: :delete,
                               data: { confirm: "You sure?" }, class: "ml-2 mb-2 float-left card-link" %>
+          <% end %>
+          
           <a data-toggle="modal" href="#exampleModal<%= note.id %>" class="ml-2 mb-2 float-right card-link">More</a>
+          
       </div>
 
   </div>

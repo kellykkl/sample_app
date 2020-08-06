@@ -13,13 +13,35 @@
 
 <% if logged_in? %>
 
+<% if @query == "public" %>
+
+<div class = "row">
+
+<div class="col-md-8 my-2">
+
+      <% @public_notes.each do |note| %>
+      <%= render partial: "card", locals: {note: note, article_id: @article.id, query: "public"} %>
+      <% end %>
+
+    </div>
+
+<div class="col-md-3">
+
+  <%= link_to "View private notes", article_path(:id => @article.id), class: 'btn btn-dark my-2' %>
+
+</div>
+
+</div>
+
+
+<% else %>
+
     <%= form_with scope: :note, url: notes_path(article_id: @article.id) do |form| %>
 
+    <div class="row h-50">
 
-<div class="row h-50">
 
-
-  <div class="form-group col-md-8">
+      <div class="form-group col-md-8">
 <!--     dividing form up into divs causes problems, need to refresh to submit again
  -->
 
@@ -28,9 +50,9 @@
         <%= form.label :note_text, 'Take a note (Markdown and LaTeX supported):' %><br>
         <%= form.text_area :note_text, size: "30x15", class: "form-control", id: "textInput" %>
 
-  </div>
+      </div>
 
-  <div class="form-group col-md-3 ml-2">
+      <div class="form-group col-md-3 ml-2">
           <label>Type </label><br/>
 
           <%= form.radio_button :note_type, 'note', :checked => true  %>
@@ -53,15 +75,17 @@
           <br/>
           <br/>
 
-        <label>PDF page number </label><br/>
-        <%= form.number_field :page_num, :style => "display:inline", class: "form-control" %>
+          <label>PDF page number </label><br/>
+          <%= form.number_field :page_num, :style => "display:inline", class: "form-control" %>
 
-      <p>
-        <%= form.submit class: "mb-2 btn btn-outline-secondary"%>
-      </p>
+          <p>
+            <%= form.submit class: "mb-2 btn btn-outline-secondary"%>
+          </p>
 
 
-    <% end %>
+      <% end %>
+
+
   </div>
 
 </div>
@@ -72,30 +96,43 @@
   <div class = "col-md-8">
 
       <% @notes.each do |note| %>
-      <%= render partial: "card", locals: {note: note, article_id: @article.id} %>
+      <%= render partial: "card", locals: {note: note, article_id: @article.id, query: "private"} %>
       <% end %>
 
   </div>
 
   <div class = "col-md-3">
+    <%= link_to "View public notes", article_path(:id => @article.id, :query => "public"), class: 'btn btn-dark' %>
+
+
   </div>
 
 </div>
 
+    <% end %>
+
 
 <% else %>
-  <%= link_to "Log in now to add notes", login_path, class: 'btn btn-link' %>
+  
+
+  <div class = "row">
 
     <div class = "col-md-8">
 
-      <% @notes.each do |note| %>
-      <%= render partial: "card", locals: {note: note, article_id: @article.id} %>
+      <% @public_notes.each do |note| %>
+      <%= render partial: "card", locals: {note: note, article_id: @article.id, query: "public"} %>
       <% end %>
 
   </div>
 
   <div class = "col-md-3">
+
+    <%= link_to "Log in now to add notes", login_path, class: 'btn btn-primary' %>
+
+
   </div>
+
+</div>
 
 <% end %>
 

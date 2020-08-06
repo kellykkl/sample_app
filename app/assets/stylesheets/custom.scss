@@ -242,6 +242,18 @@ input[type="radio"] {
   }
 }
 
+/* Article index on profile page */
+
+.users_articles {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid gray;
+  }
+}
+
 /* Navbar*/
 
 .navbar_text {
