@@ -40,6 +40,13 @@ note_cat = note.note_type.to_s.capitalize %>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
+        <%= form_with scope: :note, url: notes_path(article_id: @article.id) do |form| %>
+                <%= form.hidden_field :is_public, :value => true %>
+                <%= form.hidden_field :page_num, :value => note.page_num %>
+                <%= form.hidden_field :note_text, :value => note.note_text %>
+                <%= form.hidden_field :note_type, :value => note.note_type %>
+        <%= form.submit 'Publish', class: "btn btn-outline-secondary mb-0", type: "submit", data: { disable_with: false }%>
+        <% end %>
       </div>
     </div>
   </div>
