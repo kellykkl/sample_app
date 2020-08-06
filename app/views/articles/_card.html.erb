@@ -1,0 +1,47 @@
+
+<% font_type = {
+  "note" => "secondary",
+  "question" => "primary",
+  "summary" => "success",
+  "code" => "warning"
+} 
+
+note_cat = note.note_type.to_s.capitalize %>
+
+  <div class="card border-<%= font_type[note.note_type] %> mb-3 mr-2">
+    <div class="card-header bg-<%= font_type[note.note_type] %> text-white">
+        Page <%== note.page_num %> // <%== note_cat %>
+    </div>
+      <div class="card-body text-<%= font_type[note.note_type] %> small text-truncate">
+        <%= kramdown(note.note_text).html_safe %>
+      </div>
+      <div class="card-footer">
+
+          <%= link_to "Delete", note_path(article_id: article_id, id: note.id), method: :delete,
+                              data: { confirm: "You sure?" }, class: "ml-2 mb-2 float-left card-link" %>
+          <a data-toggle="modal" href="#exampleModal<%= note.id %>" class="ml-2 mb-2 float-right card-link">More</a>
+      </div>
+
+  </div>
+
+
+<div class="modal fade" id="exampleModal<%= note.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Page <%== note.page_num %> // <%== note_cat %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= kramdown(note.note_text).html_safe %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
