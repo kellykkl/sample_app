@@ -47,7 +47,7 @@
 
 
         <%= form.hidden_field :is_public, :value => false %>
-        <%= form.label :note_text, 'Take a note (Markdown and LaTeX supported):' %><br>
+        <%= form.label :note_text, 'Take a note (Markdown and LaTeX [use $$ to start and end] supported):' %><br>
         <%= form.text_area :note_text, size: "30x15", class: "form-control", id: "textInput" %>
 
       </div>
@@ -136,5 +136,12 @@
 
 <% end %>
 
+<script type="text/javascript">
+if (window.MathJax) {
+  MathJax.Hub.Queue(
+    ["Typeset",MathJax.Hub]
+  );
+}
+</script>
 
 
