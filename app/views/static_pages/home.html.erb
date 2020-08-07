@@ -1,15 +1,15 @@
-<div class="center jumbotron">
- <h1>Welcome to the Sample App</h1>
-<h2>
-  This is the home page for the
-  <a href="https://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-  sample application.
-</h2>
+<div class="container">
+  <div class="card">
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+ <div class="col-sm-12"><p><center>Search for papers to see notes others have added or to add your own notes &#129299</center></p></div>
+     <%= form_with scope: :article, url: articles_path, class: "form-inline col-sm-8 offset-sm-2 mb-4", local: true do |f| %>
+    <%= f.text_field :url, class: 'form-control col-sm-10 my-1', placeholder: "Enter arxiv link e.g. https://arxiv.org/abs/1406.2661"%>
+    <%= f.submit "Search", class: "btn btn-primary col-sm-2 my-1" %>
+    <% end %>   
+
+
+
+</div>
 </div>
 
-<%= link_to image_tag("rails.svg", alt: "Rails logo", width: "200"),
-                      "https://rubyonrails.org/" %>
-                      
 <!-- <%= image_tag("kitten.jpg") %> -->

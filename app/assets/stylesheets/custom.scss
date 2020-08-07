@@ -33,25 +33,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
 }
 
 h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   text-align: center;
-  font-weight: normal;
-  color: #777;
 }
 
 h3 {
-  font-size: 2em;
-  letter-spacing: -1px;
   margin-bottom: 5px;
+  text-align: center;
+}
+
+h4 {
   text-align: center;
 }
 
@@ -59,6 +55,19 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+
+/* button */
+
+.btn-primary {
+    color: #FFFFFF;
+    background-color: #4742de
+}
+
+.btn-primary:hover {
+    color: #FFFFFF;
+    background-color: #6f6ce6;
+}
+
 
 /* header */
 
@@ -235,6 +244,7 @@ input[type="radio"] {
 .users {
   list-style: none;
   margin: 0;
+  padding: 0;
   li {
     overflow: auto;
     padding: 10px 0;
@@ -257,28 +267,16 @@ input[type="radio"] {
 
 /* Navbar*/
 
-.navbar_text {
-   margin-top: 2px;
-   height: 15px;
-   font-size: 13px;
-   line-height: 15px;
-}
 
-.navbar_button {
-   margin-top: 2px;
-   height: 12px;
-   font-size: 13px; 
-   line-height: 17px;
-}
 
-.dropdown .dropdown-menu .dropdown-item {color:$light; background:$dark; text-decoration: none;}
+.dropdown .dropdown-menu .dropdown-item {color:$dark; background:$light; text-decoration: none;}
 
 .navbar .dropdown-menu {
-  background-color: $dark;
+  background-color: $light;
 }
 
 .navbar .dropdown.show a { 
-  background-color: $dark;
+  background-color: $light;
 }
 
 
@@ -312,18 +310,18 @@ input[type="radio"] {
   .digg_pagination .current {
     font-style: normal;
     font-weight: bold;
-    background: #2e6ab1;
+    background: #4742de;
     color: white;
-    border: 1px solid #2e6ab1; }
+    border: 1px solid #4742de; }
   .digg_pagination a {
     text-decoration: none;
-    color: #105cb6;
-    border: 1px solid #9aafe5; }
+    color: #4742de;
+    border: 1px solid #4742de; }
     .digg_pagination a:hover, .digg_pagination a:focus {
       color: #000033;
       border-color: #000033; }
   .digg_pagination .page_info {
-    background: #2e6ab1;
+    background: #4742de;
     color: white;
     padding: 0.4em 0.6em;
     width: 22em;
@@ -331,7 +329,7 @@ input[type="radio"] {
     text-align: center; }
     .digg_pagination .page_info b {
       color: #000033;
-      background: #6aa6ed;
+      background: #4742de;
       padding: 0.1em 0.25em; }
   .digg_pagination:after {
     content: ".";

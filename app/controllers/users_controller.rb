@@ -15,6 +15,8 @@ class UsersController < ApplicationController
       @user_articles = @user.articles_with_notes.distinct
     end
 
+    @current_user = current_user
+
   end
 
   def new

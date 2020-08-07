@@ -1,15 +1,10 @@
 <% provide(:title, @article.title) %>
-<div class="row">
-  <div class="col-sm-12">
-       <h3>
+       <h2>
          <%= @article.title %>
-      </h3>
+      </h2>
       <div class = "center">
-      <%= link_to "Open article in new tab", @article.download_link, target: :_blank, class: 'btn btn-link' %>
+      <%= link_to "Open article in new tab", @article.download_link, target: :_blank, class: 'btn btn-link mb-4' %>
     </div>
-  </div>
-</div>
-
 
 <% if logged_in? %>
 
@@ -27,7 +22,7 @@
 
 <div class="col-md-3">
 
-  <%= link_to "View private notes", article_path(:id => @article.id), class: 'btn btn-dark my-2' %>
+  <%= link_to "View private notes", article_path(:id => @article.id), class: 'btn btn-primary my-2' %>
 
 </div>
 
@@ -79,7 +74,7 @@
           <%= form.number_field :page_num, :style => "display:inline", class: "form-control" %>
 
           <p>
-            <%= form.submit class: "mb-2 btn btn-outline-secondary"%>
+            <%= form.submit class: "mb-2 btn btn-primary"%>
           </p>
 
 
@@ -102,7 +97,7 @@
   </div>
 
   <div class = "col-md-3">
-    <%= link_to "View public notes", article_path(:id => @article.id, :query => "public"), class: 'btn btn-dark' %>
+    <%= link_to "View public notes", article_path(:id => @article.id, :query => "public"), class: 'btn btn-primary' %>
 
 
   </div>

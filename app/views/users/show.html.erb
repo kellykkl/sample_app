@@ -14,7 +14,7 @@
 <ul class="users_articles">
 
   	  <% @user_articles.each do |article| %>
-      <%= render partial: "article_card", locals: {article: article} %>
+      <%= render partial: "article_card", locals: {article: article, current_user: @current_user.id} %>
       <% end %>
 </ul>
   </div>

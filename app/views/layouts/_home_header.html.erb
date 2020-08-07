@@ -41,15 +41,7 @@
 
 
     </ul>
-<!--     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
 
-    <%= form_with scope: :article, url: articles_path, class: "form-inline col-sm-5 my-1 my-lg-0", local: true do |f| %>
-    <%= f.text_field :url, class: 'form-control col-9 my-1', placeholder: "Enter arxiv link"%>
-    <%= f.submit "Go", class: "btn btn-primary col-2 my-1 ml-2" %>
-    <% end %>  
 
   </div>
 </div>
