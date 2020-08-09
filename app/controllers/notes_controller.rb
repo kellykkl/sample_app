@@ -6,9 +6,7 @@ class NotesController < ApplicationController
 	def create
     	@note = current_user.notes.build(note_params)
 
-		@note.update(article_id: params[:article_id], 
-			# is_public: false,
-			)
+		@note.update(article_id: params[:article_id])
 
 		@note.save
 
@@ -43,7 +41,8 @@ class NotesController < ApplicationController
 
 private
   def note_params
-    params.require(:note).permit(:article_id, :note_text, :user_id, :is_public, :note_type, :page_num)
+    params.require(:note).permit(:article_id, :note_text, :user_id, 
+    	:is_public, :note_type, :page_num, :username, :is_anon)
   end
 
 end

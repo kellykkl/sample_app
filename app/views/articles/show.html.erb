@@ -68,6 +68,11 @@
           <%= form.label :note_type, 'Code', :style => "display:inline", class: 'badge badge-warning' %>
 
           <br/>
+
+          <%= form.radio_button :note_type, 'application' %>
+          <%= form.label :note_type, 'Application', :style => "display:inline", class: 'badge badge-danger' %>
+
+          <br/>
           <br/>
 
           <label>PDF page number </label><br/>
@@ -76,7 +81,6 @@
           <p>
             <%= form.submit class: "mb-2 btn btn-primary"%>
           </p>
-
 
       <% end %>
 
@@ -89,6 +93,7 @@
 <div class = "row">
 
   <div class = "col-md-8">
+
 
       <% @notes.each do |note| %>
       <%= render partial: "card", locals: {note: note, article_id: @article.id, query: "private"} %>

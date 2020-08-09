@@ -1,16 +1,31 @@
 <% provide(:title, "About") %>
-<h1>About</h1>
+<div class = "row">
+<div class = 'col-sm-7'>
 <p>
-  The <a href="https://www.railstutorial.org/"><em>Ruby on Rails
-  Tutorial</em></a>, part of the
-  <a href="https://www.learnenough.com/">Learn Enough</a> family of
-  tutorials, is a
-  <a href="https://www.railstutorial.org/book">book</a> and
-  <a href="https://screencasts.railstutorial.org/">screencast series</a>
-  to teach web development with
-  <a href="https://rubyonrails.org/">Ruby on Rails</a>.
-  This is the sample app for the tutorial.
+  <h2 class = "float-left">Join a thousands-strong reading group.</h2></br></br>
+
+  <blockquote class="blockquote">Reading academic papers doesn't have to be lonely and confusing. Get more out of your reading by standing on the shoulders of those who have gone before. </blockquote>
+
+
+
+  On TalkingPapers:</br>
+  <ul class="repeating-before">
+<li>Discuss your insights and questions with other researchers and practitioners</li>
+<li>Keep your paper reading notes organized and in one place</li>
+<li>Discover new and hot papers in your areas of interest</li>
+</ul>
 </br>
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+
+
+    <%= link_to "Get started", signup_path, class: "btn btn-lg btn-primary" %>
 
 </p>
+</div>
+
+<div class = 'col-sm-5'>
+
+	<img src= <%= asset_path( 'talkingpaperswelc.png' ) %>/ class= "img-fluid mx-2 my-3">
+
+
+	</div>
+</div>
