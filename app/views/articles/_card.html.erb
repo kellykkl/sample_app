@@ -19,6 +19,7 @@ note_cat = note.note_type.to_s.capitalize %>
     </div>
       <div class="card-body text-<%= font_type[note.note_type] %> small text-truncate">
         <%= kramdown(note.note_text).html_safe %>
+        <%= "[Image attached]" if note.image.attached? %>
       </div>
 
       <div class="card-footer">
@@ -51,8 +52,8 @@ note_cat = note.note_type.to_s.capitalize %>
       </div>
       <div class="modal-body small">
         <%= kramdown(note.note_text).html_safe %>
-
-        for public mode, modal should just display comment thread. another link to add comment in footer.
+        <%= image_tag note.display_image if note.image.attached? %>
+        </br>for public mode, modal should just display comment thread. another link to add comment in footer.
       </div>
       <div class="modal-footer justify-content-end">
 <!--         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
