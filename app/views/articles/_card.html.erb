@@ -71,13 +71,13 @@ note_cat = note.note_type.to_s.capitalize %>
      <span>Stay anonymous</span>
     <% end %> 
 
-<!--           <%= form.check_box :is_anon %>
-          <%= form.label :is_anon, 'Stay anonymous', :style => "display:inline" %> -->
 
                 <%= form.submit 'Publish', class: "btn btn-outline-secondary mb-0", type: "submit", data: { disable_with: false }%>
             <% end %>
             <% else %>
-              <button type="button" class="btn btn-secondary" href="#">Comment</button>
+
+          <%= button_to "Comment", note_path(id: note.id), class: "btn btn-secondary my-0", method: :get %>
+
           <% end %>
       </div>
     </div>

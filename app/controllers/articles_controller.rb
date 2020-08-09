@@ -42,6 +42,7 @@ class ArticlesController < ApplicationController
 
 		@public_notes = @article.notes.where(is_public: true)\
 						.order(:page_num)
+		# think need to modify this (find_by_sql) to include array of comments for each public note?
 
 		@query = params[:query]
 	end

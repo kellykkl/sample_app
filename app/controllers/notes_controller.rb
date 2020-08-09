@@ -16,7 +16,8 @@ class NotesController < ApplicationController
 
 	def show
 		@note = Note.find(params[:id])
-		render plain: @note.note_text
+		@note_comments = Comment.where(note_id: params[:id]).order(:created_at)
+
 	end
 
 	def destroy

@@ -1,6 +1,7 @@
 class Note < ApplicationRecord
 	belongs_to :article
 	belongs_to :user
+	has_many :comments
 	has_one_attached :image
 	validates :image,   content_type: { in: %w[image/jpeg image/gif image/png],
 	                                  message: "must be a valid image format" },
