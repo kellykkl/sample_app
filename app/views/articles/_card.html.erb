@@ -53,7 +53,15 @@ note_cat = note.note_type.to_s.capitalize %>
       <div class="modal-body small">
         <%= kramdown(note.note_text).html_safe %>
         <%= image_tag note.display_image if note.image.attached? %>
-        </br>for public mode, modal should just display comment thread. another link to add comment in footer.
+
+        <% if query == "public" %>
+        <ul>
+          <% note.comments_texts.zip(note.comments_usernames).each do |comment_text, comment_username| %>
+            <li> <%== comment_text %>, <%== comment_username %>  </li>
+            <% end %>
+          </ul>
+        <% end %>
+
       </div>
       <div class="modal-footer justify-content-end">
 <!--         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

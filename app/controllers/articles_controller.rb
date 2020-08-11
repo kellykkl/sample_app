@@ -40,9 +40,37 @@ class ArticlesController < ApplicationController
 						.order(:page_num)
 		end
 
-		@public_notes = @article.notes.where(is_public: true)\
-						.order(:page_num)
+		# @public_notes = @article.notes.where(is_public: true)\
+		# 				.order(:page_num)
 		# think need to modify this (find_by_sql) to include array of comments for each public note?
+
+		@public_notes = Note.find_by_sql(['''
+			select
+				notes.id,
+				notes.article_id,
+				notes.page_num,
+				notes.note_text,
+				notes.note_type,
+				notes.user_id,
+				notes.is_public,
+				notes.username,
+				notes.is_anon,
+				array_agg(comments.comment_text order by comments.created_at) comments_texts,
+				array_agg(comments.username order by comments.created_at) comments_usernames
+			from
+				notes
+					inner join articles
+						on (articles.id = notes.article_id)
+					left join comments
+						on (notes.id = comments.note_id)
+			where
+				articles.id = ?
+				and notes.is_public
+			group by
+				1,2,3,4,5,6,7,8,9
+			order by
+				page_num
+		''', params[:id]])
 
 		@query = params[:query]
 	end
