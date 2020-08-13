@@ -12,19 +12,22 @@ class ArticlesController < ApplicationController
 	 # if not existing, create. else, just redirect
 	 existing = Article.where(:url => @article.url).first
 	 if existing.nil?
-	  
-		  doc = Nokogiri::HTML(open(@article.url))
-		  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
-		  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
+	  	  	
+	  	  begin
+			  doc = Nokogiri::HTML(open(@article.url))
+			  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
+			  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
 
-		  puts title
-		  puts download_link
+			  @article.update(title: title, download_link: download_link)
 
-		  @article.update(title: title, download_link: download_link)
+			  @article.save
+			  redirect_to @article
+		  rescue 
+		  	  flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL and try again.'
+		  	  
+		  	  redirect_to root_path
+		  end
 
-
-		  @article.save
-		  redirect_to @article
 	 else
 	 	redirect_to existing
 	 end
@@ -55,8 +58,7 @@ class ArticlesController < ApplicationController
 				notes.is_public,
 				notes.username,
 				notes.is_anon,
-				array_agg(comments.comment_text order by comments.created_at) comments_texts,
-				array_agg(comments.username order by comments.created_at) comments_usernames
+				array_agg(comments.comment_text order by comments.created_at) comments_texts
 			from
 				notes
 					inner join articles

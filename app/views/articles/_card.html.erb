@@ -42,7 +42,7 @@ note_cat = note.note_type.to_s.capitalize %>
 
 
 <div class="modal fade" id="exampleModal<%= note.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Page <%== note.page_num %> // <%== note_cat %></h5>
@@ -53,13 +53,25 @@ note_cat = note.note_type.to_s.capitalize %>
       <div class="modal-body small">
         <%= kramdown(note.note_text).html_safe %>
         <%= image_tag note.display_image if note.image.attached? %>
+        <% if note.image.attached?%></br><% end %>
+            <% if !note.username.nil? and !note.is_anon %>
+                By <%= link_to note.username, user_path(id: note.user_id) %>
+            <% elsif note.is_anon %>
+                By Anonymous
+            <% end %>
+          </br></br>
 
         <% if query == "public" %>
-        <ul>
-          <% note.comments_texts.zip(note.comments_usernames).each do |comment_text, comment_username| %>
-            <li> <%== comment_text %>, <%== comment_username %>  </li>
+        <ul class = "modal_comments">
+          <h5>Comments</h5> 
+          <% if note.comments_texts.first.nil? %>
+            No comments yet! Click "Comment" below to add some.
+          <% else %>
+          <% note.comments_texts.each do |comment_text| %>
+            <li> <%== comment_text %>
             <% end %>
           </ul>
+        <% end %>
         <% end %>
 
       </div>
@@ -73,6 +85,7 @@ note_cat = note.note_type.to_s.capitalize %>
                 <%= form.hidden_field :note_text, :value => note.note_text %>
                 <%= form.hidden_field :note_type, :value => note.note_type %>
                 <%= form.hidden_field :username, :value => current_user.name %>
+                <%= form.hidden_field :parent_note_id, :value => note.id %>
 
     <%= form.label :is_anon, class: "checkbox-anon inline" do %>
      <%= form.check_box :is_anon %>
@@ -83,9 +96,11 @@ note_cat = note.note_type.to_s.capitalize %>
                 <%= form.submit 'Publish', class: "btn btn-outline-secondary mb-0", type: "submit", data: { disable_with: false }%>
             <% end %>
             <% else %>
-
+            <% if current_user.nil? %>
+             <%= link_to "Login to comment", login_path, class: 'btn btn-primary' %>
+            <% else %>
           <%= button_to "Comment", note_path(id: note.id), class: "btn btn-secondary my-0", method: :get %>
-
+          <% end %>
           <% end %>
       </div>
     </div>

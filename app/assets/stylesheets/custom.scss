@@ -60,12 +60,14 @@ p {
 
 .btn-primary {
     color: #FFFFFF;
-    background-color: #4742de
+    background-color: #4742de;
+    border-color: #4742de;
 }
 
 .btn-primary:hover {
     color: #FFFFFF;
     background-color: #6f6ce6;
+    border-color: #4742de;
 }
 
 
@@ -244,6 +246,11 @@ input[type="radio"] {
   margin-left: 0;
 }
 
+#comment_is_anon {
+  width: auto;
+  margin-left: 0;
+}
+
 .checkbox-anon {
   margin-top: -10px;
   margin-bottom: 2px;
@@ -278,6 +285,22 @@ input[type="radio"] {
     border-bottom: 1px solid gray;
   }
 }
+
+/* Modal for displaying comments */
+
+
+.modal_comments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid gray;
+  }
+}
+
+
 
 /* Navbar*/
 

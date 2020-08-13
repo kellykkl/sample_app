@@ -3,7 +3,7 @@
          <%= @article.title %>
       </h2>
       <div class = "center">
-      <%= link_to "Open article in new tab", @article.download_link, target: :_blank, class: 'btn btn-link mb-4' %>
+      <%= link_to "Open paper in new tab", @article.download_link, target: :_blank, class: 'btn btn-link mb-4' %>
     </div>
 
 <% if logged_in? %>
@@ -14,9 +14,17 @@
 
 <div class="col-md-8 my-2">
 
+  <% if !@public_notes.empty? %>
+
       <% @public_notes.each do |note| %>
       <%= render partial: "card", locals: {note: note, article_id: @article.id, query: "public"} %>
       <% end %>
+
+  <% else %>
+
+    No public notes yet. Publish your personal notes to see them here!
+
+  <% end %>
 
     </div>
 
@@ -138,6 +146,7 @@
 <% end %>
 
 <script type="text/javascript">
+
 if (window.MathJax) {
   MathJax.Hub.Queue(
     ["Typeset",MathJax.Hub]
@@ -151,4 +160,5 @@ if (window.MathJax) {
       $("#note_image").val("");
     }
   });
+  
 </script>

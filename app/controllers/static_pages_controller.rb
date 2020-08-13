@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+
     # @recent_notes = Note.where(is_public: true).limit(10).order('created_at desc')
 
     # @recent_articles = Article.find_by_sql("SELECT * FROM articles 

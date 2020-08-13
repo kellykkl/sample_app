@@ -6,10 +6,15 @@
          <%= gravatar_for @user %>
          <%= @user.name %>
       </h1>
+      <small>
+        Joined on <%= @user.created_at.strftime("%Y-%m-%d") %>
+      </small>
     </section>
   </aside>
 
   <div class="col-md-8 my-2">
+    <% if @user_articles.length > 0 %>
+
   	<h2 class='text-left my-3'>Papers I've talked to</h2>
 <ul class="users_articles">
 
@@ -17,5 +22,10 @@
       <%= render partial: "article_card", locals: {article: article, current_user: @current_user.id} %>
       <% end %>
 </ul>
+
+    <% else %>
+         No papers annotated yet. 
+    <% end %>
+
   </div>
 </div>

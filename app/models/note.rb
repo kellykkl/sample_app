@@ -9,7 +9,7 @@ class Note < ApplicationRecord
 	                                  message:   "should be less than 5MB" } 
 
   def display_image
-    image.variant(resize_to_limit: [400, 400])
+    image.variant(resize_to_limit: [500, 500])
   end
 
 end
