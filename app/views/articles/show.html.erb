@@ -128,9 +128,17 @@
 
     <div class = "col-md-8">
 
+    <% if !@public_notes.empty? %>
+
       <% @public_notes.each do |note| %>
       <%= render partial: "card", locals: {note: note, article_id: @article.id, query: "public"} %>
       <% end %>
+
+    <% else %>
+
+      No public notes yet. Publish your personal notes to see them here!
+
+    <% end %>
 
   </div>
 
