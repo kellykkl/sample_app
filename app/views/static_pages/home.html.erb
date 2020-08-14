@@ -14,6 +14,7 @@
 
  <div class="col-sm-12 my-3"><h5>Recently annotated papers</h5></div>
 
+    <% if !@recent_articles.empty? %>
 
 	<% @recent_articles.each do |article| %>
 		<div class = "card my-1">
@@ -21,16 +22,23 @@
 		<%= link_to article.title, article_path(:id => article.article_id, query: "public")%> | 
 				<%= pluralize( article.num_notes, 'note') %>
 
+			</div>
+			<div class="blockquote-footer mx-2 my-1">
+		 <div class="float-right">
+		 	Last updated <%= time_ago_in_words(article.last_updated)   %> ago
 
-	</div>
-	<div class="blockquote-footer mx-2 my-1">
- <div class="float-right">
- 	Last updated <%= time_ago_in_words(article.last_updated)   %> ago
-
-</div>
-</div>
-	</div>
+		</div>
+		</div>
+			</div>
 	<% end %>
+
+    <% else %>
+
+      <div class="col-sm-12 my-3">No publicly annotated papers yet. Get started by searching for a paper!</div>
+
+    <% end %>
+
+
 
 </div>
 </div>
