@@ -8,7 +8,7 @@ gem 'mini_magick',                '4.9.5'
 gem 'active_storage_validations', '0.8.2'
 gem 'pagedown-rails', '~> 1.1.4'
 gem "nokogiri", ">= 1.4.2"
-gem "kramdown", "1.5.0"
+gem "kramdown", "2.3.0"
 gem 'bcrypt', '3.1.13'
 gem 'faker', '2.1.2'
 gem 'will_paginate-bootstrap4'
