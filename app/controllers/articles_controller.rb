@@ -14,14 +14,21 @@ class ArticlesController < ApplicationController
 	 if existing.nil?
 	  	  	
 	  	  begin
-			  doc = Nokogiri::HTML(open(@article.url))
-			  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
-			  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
+	  	  	  if @article.url.include? "arxiv"
+				  doc = Nokogiri::HTML(open(@article.url))
+				  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
+				  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
 
-			  @article.update(title: title, download_link: download_link)
 
-			  @article.save
-			  redirect_to @article
+				  @article.update(title: title, download_link: download_link)
+
+				  @article.save
+				  redirect_to @article
+			  else
+			  	flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL and try again.'
+
+			  	redirect_to root_path
+			  end
 		  rescue 
 		  	  flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL and try again.'
 		  	  
