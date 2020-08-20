@@ -15,6 +15,13 @@ note_cat = note.note_type.to_s.capitalize %>
         <% if query == "private" %>
           <%= link_to "Edit", edit_note_path(article_id: article_id, id: note.id),
              class: "mb-2 float-right card-link text-white" %>
+        <% else %>
+          <% if !current_user.nil? %>
+            <% if note.user_id == current_user.id %>
+              <%= link_to "Delete", note_path(article_id: article_id, id: note.id), method: :delete,
+                                  data: { confirm: "You sure?" }, class: "mb-2 float-right card-link text-white" %>
+            <% end %>
+          <% end %>
         <% end %>
     </div>
       <div class="card-body text-<%= font_type[note.note_type] %> small text-truncate">
