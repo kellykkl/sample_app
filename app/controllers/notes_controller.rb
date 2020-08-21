@@ -34,7 +34,7 @@ class NotesController < ApplicationController
 		if @note.user_id == current_user.id
 	    	@note.destroy
 	    	flash[:success] = "Note deleted"
-	    	redirect_to article_path(params[:article_id])
+	    	redirect_to article_path(id: params[:article_id], query: params[:query])
 	    else
 	    	redirect_to root_path
 	    end
