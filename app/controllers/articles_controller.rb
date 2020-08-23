@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
 	 if existing.nil?
 	  	  	
 	  	  begin
-	  	  	  if @article.url.include? "arxiv"
+	  	  	  if @article.url.include? "arxiv.org/abs/" 
 				  doc = Nokogiri::HTML(open(@article.url))
 				  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
 				  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
@@ -25,12 +25,12 @@ class ArticlesController < ApplicationController
 				  @article.save
 				  redirect_to @article
 			  else
-			  	flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL and try again.'
+			  	flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL (provide the abs page, not pdf link) and try again.'
 
 			  	redirect_to root_path
 			  end
 		  rescue 
-		  	  flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL and try again.'
+		  	  flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL (provide the abs page, not pdf link) and try again.'
 		  	  
 		  	  redirect_to root_path
 		  end
