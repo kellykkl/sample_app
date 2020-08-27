@@ -1,43 +1,66 @@
 class ArticlesController < ApplicationController
 	require 'nokogiri'
 	require 'open-uri'
+	require 'uri'
 
 	def new
 		render '/static_pages/home'
 	end
 
 	def create
-	  @article = Article.new(article_params)
-	 
-	 # if not existing, create. else, just redirect
-	 existing = Article.where(:url => @article.url).first
-	 if existing.nil?
-	  	  	
-	  	  begin
-	  	  	  if @article.url.include? "arxiv.org/abs/" 
-				  doc = Nokogiri::HTML(open(@article.url))
-				  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
-				  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
+
+		if article_params[:is_arxiv] == "true"
+	  		@article = Article.new(:url => article_params[:url], :title => article_params[:title], :download_link => article_params[:download_link])
+	 	else
+	 		@article = Article.new(:url => article_params[:url], :title => article_params[:title], :download_link => article_params[:url])
+	 	end
 
 
-				  @article.update(title: title, download_link: download_link)
+		 # if not existing, create. else, just redirect
+		existing = Article.where(:url => @article.url).first
+		if existing.nil?
+		  	  	
+		  	  	if article_params[:is_arxiv] == "true"
+		  	  	  	begin
+			  	  	  	if @article.url.include? "arxiv.org/abs/" 
+							  doc = Nokogiri::HTML(open(@article.url))
+							  title = doc.xpath('/html/head/meta[@name="citation_title"]/@content').to_s
+							  download_link = doc.xpath('/html/head/meta[@name="citation_pdf_url"]/@content').to_s
 
-				  @article.save
-				  redirect_to @article
-			  else
-			  	flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL (provide the abs page, not pdf link) and try again.'
 
-			  	redirect_to root_path
-			  end
-		  rescue 
-		  	  flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL (provide the abs page, not pdf link) and try again.'
-		  	  
-		  	  redirect_to root_path
-		  end
+							  @article.update(title: title, download_link: download_link)
 
-	 else
-	 	redirect_to existing
-	 end
+							  @article.save
+							  redirect_to @article
+
+						else
+							flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL (provide the abs page, not pdf link) and try again.'
+
+						  	redirect_to root_path
+						end
+
+					rescue 
+						flash[:danger] = 'Couldn\'t retrieve paper! Please check the arxiv URL (provide the abs page, not pdf link) and try again.'
+						  
+						redirect_to root_path
+					end
+
+				else
+					if valid_url?(@article.url)
+
+						@article.save
+						redirect_to @article
+					else
+						flash[:danger] = 'Invalid PDF link, please check and try again.'
+
+					  	redirect_to root_path
+					end
+				end
+
+
+		else
+			redirect_to existing
+		end
 
 	end
 
@@ -86,7 +109,20 @@ class ArticlesController < ApplicationController
  
 private
   def article_params
-    params.require(:article).permit(:url, :title, :download_link)
+    params.require(:article).permit(:url, :title, :download_link, :is_arxiv)
+  end
+
+  def valid_url?(uri)
+	  begin
+	    uri = URI.parse(uri)
+	    if !uri.host.nil?
+	    	true
+	    else
+	    	false
+	    end
+	  rescue
+	    false
+	  end
   end
 
 end

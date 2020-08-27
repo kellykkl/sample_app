@@ -2,10 +2,10 @@ module ApplicationHelper
 	
 require 'kramdown'
 
+
 	def kramdown(text)
 		return Kramdown::Document.new(text).to_html
 	end
-
 
 
   # Returns the full title on a per-page basis.       # Documentation comment
