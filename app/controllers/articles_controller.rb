@@ -46,14 +46,20 @@ class ArticlesController < ApplicationController
 					end
 
 				else
-					if valid_url?(@article.url)
+					if valid_non_arxiv_paper?(@article.url)
 
-						@article.save
-						redirect_to @article
+						if article_params[:title].delete(' ') != ""
+							@article.save
+							redirect_to @article
+						else
+							flash[:danger] = 'You must fill in the title of the article.'
+
+							redirect_to root_path
+						end
 					else
 						flash[:danger] = 'Invalid PDF link, please check and try again.'
 
-					  	redirect_to root_path
+						redirect_to root_path
 					end
 				end
 
@@ -112,10 +118,13 @@ private
     params.require(:article).permit(:url, :title, :download_link, :is_arxiv)
   end
 
-  def valid_url?(uri)
+  def valid_non_arxiv_paper?(uri)
 	  begin
-	    uri = URI.parse(uri)
-	    if !uri.host.nil?
+		url = URI.parse(uri)
+		req = Net::HTTP.new(url.host, url.port)
+		req.use_ssl = true
+		res = req.request_head(url.path)
+	    if res.code == "200" && res.content_type == "application/pdf"
 	    	true
 	    else
 	    	false
