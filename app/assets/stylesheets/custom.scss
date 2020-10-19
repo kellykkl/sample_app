@@ -433,3 +433,22 @@ span.image {
     padding:20px;
 }
 
+/* search bar */
+.search-container {
+  float: right;
+  white-space: nowrap;
+  font-size: 1.0em;
+}
+
+.search-container input {
+  float: left;
+  width: 190px !important;
+  border-width: 1px 0px 1px 1px;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+}
+
+.search-container button {
+  float: left;
+  font-size: 1.0em;
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
